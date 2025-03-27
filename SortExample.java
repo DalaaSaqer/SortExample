@@ -6,11 +6,11 @@
             Integer[] array1 = { 12, 13, 24, 10, 3, 6, 90, 70 };
             int[] array2 = { 2, 6, 3, 5, 1 };
 
-            // Sort array1 using QuickSort and output it
+            // Sort array1 using QuickSort and print it
             quickSort(array1, 0, array1.length - 1);
             System.out.println(Arrays.toString(array1));
 
-            // Sort array2 using MergeSort and output it
+            // Sort array2 using MergeSort and print it
             mergeSort(array2, array2.length);
             System.out.println(Arrays.toString(array2));
         }
