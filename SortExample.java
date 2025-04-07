@@ -1,117 +1,122 @@
-    import java.util.*;
-
-    public class SortExample {
-        public static void main(String[] args) {
-            // Define unsorted arrays
-            Integer[] array1 = { 12, 13, 24, 10, 3, 6, 90, 70 };
-            int[] array2 = { 2, 6, 3, 5, 1 };
-
-            // Sort array1 using QuickSort and print it
-            quickSort(array1, 0, array1.length - 1);
-            System.out.println(Arrays.toString(array1));
-
-            // Sort array2 using MergeSort and print it
-            mergeSort(array2, array2.length);
-            System.out.println(Arrays.toString(array2));
+import java.util.*;
+public class SortExample
+{
+    public static void main(String[] args)
+    {
+        // This is unsorted array
+        Integer[] array1 = new Integer[] { 12, 13, 24, 10, 3, 6, 90, 70 };
+        int array2[] = { 2, 6, 3, 5, 1 };
+        // Let's sort using quick sort
+        quickSort(array1, 0, array1.length - 1);
+        // Verify sorted array
+        System.out.println(Arrays.toString(array1));
+        mergeSort(array2, array2.length - 1);
+        // Verify sorted array
+        System.out.println(Arrays.toString(array2));
+    }
+    public static void quickSort(Integer[] arr, int low, int high)
+    {
+        //check for empty or null array
+        if (arr == null || arr.length == 0)
+        {
+            return;
         }
-
-        // Quick sort method: Sorts the array between low and high indices
-        public static void quickSort(Integer[] arr, int low, int high) {
-            if (arr == null || arr.length == 0) {
-                return;
+        if (low >= high)
+        {
+            return;
+        }
+        //Get the pivot element from the middle of the list
+        int middle = low + (high - low) / 2;
+        int pivot = arr[middle];
+        // make left < pivot and right > pivot
+        int i = low, j = high;
+        while (i <= j)
+        {
+            //Check until all values on left side array are lower than pivot
+            while (arr[i] < pivot)
+            {
+                i++;
             }
-
-            if (low >= high) {
-                return;
+            //Check until all values on left side array are greater than pivot
+            while (arr[j] > pivot)
+            {
+                j--;
             }
-
-            // Choose pivot element
-            int middle = low + (high - low) / 2;
-            int pivot = arr[middle];
-
-            // Partition the array around the pivot
-            int i = low, j = high;
-            while (i <= j) {
-                while (arr[i] < pivot) {
-                    i++;
-                }
-                while (arr[j] > pivot) {
-                    j--;
-                }
-                if (i <= j) {
-                    swap(arr, i, j);  // Swap elements
-                    i++;
-                    j--;
-                }
-            }
-
-            // Recursively apply QuickSort on the left and right partitions
-            if (low < j) {
-                quickSort(arr, low, j);
-            }
-            if (high > i) {
-                quickSort(arr, i, high);
+            //Now compare values from both side of lists to see if they need swapping 
+            //After swapping move the iterator on both lists
+            if (i <= j)
+            {
+                swap(arr, i, j);
+                i++;
+                j--;
             }
         }
-
-        // Swap method
-        public static void swap(Integer[] array, int x, int y) {
-            int temp = array[x];
-            array[x] = array[y];
-            array[y] = temp;
+        //Do same operation as above recursively to sort two sub arrays
+        if (low < j)
+        {
+            quickSort(arr, low, j);
         }
-
-        // Merge sort method: Recursively divides and merges the array
-        public static void mergeSort(int[] a, int n) {
-            // Base condition for recursion
-            if (n < 2) {
-                return;
-            }
-
-            int mid = n / 2;
-            int[] left = new int[mid];
-            int[] right = new int[n - mid];
-
-            // Copy elements into left and right subarrays
-            System.arraycopy(a, 0, left, 0, mid);
-            System.arraycopy(a, mid, right, 0, n - mid);
-
-            mergeSort(left, mid);
-            mergeSort(right, n - mid);
-
-            // Merge sorted subarrays
-            merge(a, left, right, mid, n - mid);
-        }
-
-        // Merge method: Merge two sorted subarrays (left and right) into the original array
-        public static void merge(int[] a, int[] left, int[] right, int leftSize, int rightSize) {
-            int i = 0, j = 0, k = 0;
-
-            // Merge left and right arrays into a
-            while (i < leftSize && j < rightSize) {
-                if (left[i] <= right[j]) {
-                    a[k++] = left[i++];
-                } else {
-                    a[k++] = right[j++];
-                }
-            }
-
-            while (i < leftSize) {
-                a[k++] = left[i++];
-            }
-
-            while (j < rightSize) {
-                a[k++] = right[j++];
-            }
-        }
-
-        // Check if an array is sorted
-        private static boolean isSorted(int[] x) {
-            for (int i = 0; i < x.length - 1; i++) {
-                if (x[i] > x[i + 1]) {
-                    return false;
-                }
-            }
-            return true;
+        if (high > i)
+        {
+            quickSort(arr, i, high);
         }
     }
+    public static void swap(Integer array[], int x, int y)
+    {
+        int temp = array[x];
+        array[x] = array[y];
+        array[y] = temp;
+    }
+    public static void mergeSort(int[] a, int n)
+    {
+        if (n < 2)
+        {
+            return;
+        }
+        int mid = n / 2;
+        int[] l = new int[mid];
+        int[] r = new int[n - mid];
+        for (int i = 0; i < mid; i++)
+        {
+            l[i] = a[i];
+        }
+        for (int i = mid; i < n; i++)
+        {
+            r[i - mid] = a[i];
+        }
+        mergeSort(l, mid);
+        mergeSort(r, n - mid);
+        merge(a, l, r, mid, n - mid);
+    }
+    public static void merge(
+     int[] a, int[] l, int[] r, int left, int right)
+    {
+        int i = 0, j = 0, k = 0;
+        while (i < left && j < right)
+        {
+            if (l[i] <= r[j])
+            {
+                a[k++] = l[i++];
+            }
+            else
+            {
+                a[k++] = r[j++];
+            }
+        }
+        while (i < left)
+        {
+            a[k++] = l[i++];
+        }
+        while (j < right)
+        {
+            a[k++] = r[j++];
+        }
+    }
+    private static boolean isSorted(int[] x)
+    {
+        for (int i = 0; i < x.length - 1; i++)
+            if (x[i] > x[i + 1])
+                return false;
+        return true;
+    }
+}
