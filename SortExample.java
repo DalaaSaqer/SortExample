@@ -3,16 +3,17 @@ public class SortExample
 {
     public static void main(String[] args)
     {
-        // This is unsorted array
+        // This is unsorted arrays
         Integer[] array1 = new Integer[] { 12, 13, 24, 10, 3, 6, 90, 70 };
         int array2[] = { 2, 6, 3, 5, 1 };
+        
         // Let's sort using quick sort
-        quickSort(array1, 0, array1.length - 1);
+           quickSort(array1, 0, array1.length - 1);
         // Verify sorted array
-        System.out.println(Arrays.toString(array1));
+           System.out.println(Arrays.toString(array1));
         mergeSort(array2, array2.length - 1);
         // Verify sorted array
-        System.out.println(Arrays.toString(array2));
+           System.out.println(Arrays.toString(array2));
     }
     public static void quickSort(Integer[] arr, int low, int high)
     {
@@ -21,13 +22,16 @@ public class SortExample
         {
             return;
         }
+        
         if (low >= high)
         {
             return;
         }
+        
         //Get the pivot element from the middle of the list
         int middle = low + (high - low) / 2;
         int pivot = arr[middle];
+        
         // make left < pivot and right > pivot
         int i = low, j = high;
         while (i <= j)
@@ -42,6 +46,7 @@ public class SortExample
             {
                 j--;
             }
+            
             //Now compare values from both side of lists to see if they need swapping 
             //After swapping move the iterator on both lists
             if (i <= j)
@@ -51,6 +56,7 @@ public class SortExample
                 j--;
             }
         }
+        
         //Do same operation as above recursively to sort two sub arrays
         if (low < j)
         {
@@ -61,18 +67,22 @@ public class SortExample
             quickSort(arr, i, high);
         }
     }
+    
     public static void swap(Integer array[], int x, int y)
     {
         int temp = array[x];
         array[x] = array[y];
         array[y] = temp;
     }
+    
     public static void mergeSort(int[] a, int n)
     {
         if (n < 2)
         {
             return;
         }
+
+    
         int mid = n / 2;
         int[] l = new int[mid];
         int[] r = new int[n - mid];
@@ -103,6 +113,7 @@ public class SortExample
                 a[k++] = r[j++];
             }
         }
+        
         while (i < left)
         {
             a[k++] = l[i++];
@@ -111,7 +122,8 @@ public class SortExample
         {
             a[k++] = r[j++];
         }
-    }
+ }
+    
     private static boolean isSorted(int[] x)
     {
         for (int i = 0; i < x.length - 1; i++)
